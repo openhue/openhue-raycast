@@ -13,7 +13,7 @@ export class HueApiError extends Error {
   constructor(
     message: string,
     public statusCode?: number,
-    public errors?: Array<{ description: string }>
+    public errors?: Array<{ description: string }>,
   ) {
     super(message);
     this.name = "HueApiError";
@@ -85,7 +85,7 @@ export async function hueRequest<T>(
     body?: unknown;
     bridgeIP?: string;
     applicationKey?: string;
-  } = {}
+  } = {},
 ): Promise<T> {
   const { method = "GET", body, bridgeIP, applicationKey } = options;
 
@@ -156,7 +156,7 @@ export async function hueRequest<T>(
           }
 
           resolve(parsed as T);
-        } catch (e) {
+        } catch {
           // Include status code and more of the response in error
           const preview = data.substring(0, 300).replace(/\n/g, " ");
           reject(new HueApiError(`Failed to parse (HTTP ${res.statusCode}): ${preview}`, res.statusCode));

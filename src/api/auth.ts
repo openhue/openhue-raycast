@@ -16,7 +16,7 @@ export async function discoverBridges(): Promise<BridgeDiscovery[]> {
 export async function authenticate(
   bridgeIP: string,
   appName: string = "openhue-raycast",
-  instanceName: string = "raycast"
+  instanceName: string = "raycast",
 ): Promise<AuthResponse> {
   return new Promise((resolve, reject) => {
     const postData = JSON.stringify({
@@ -51,7 +51,7 @@ export async function authenticate(
           } else {
             reject(new Error("Unexpected authentication response format"));
           }
-        } catch (e) {
+        } catch {
           reject(new Error(`Failed to parse response: ${data}`));
         }
       });

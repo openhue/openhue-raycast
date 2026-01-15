@@ -21,7 +21,7 @@ export async function updateScene(sceneId: string, data: ScenePut): Promise<Reso
 export async function activateScene(
   sceneId: string,
   action: "active" | "dynamic_palette" | "static" = "active",
-  duration?: number
+  duration?: number,
 ): Promise<ResourceIdentifier[]> {
   const recall: ScenePut["recall"] = { action };
   if (duration !== undefined) {

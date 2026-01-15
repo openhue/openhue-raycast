@@ -117,32 +117,22 @@ export default function SetupCommand() {
       return <ManualEntryView onSubmit={startAuthentication} onBack={discoverBridgesAsync} />;
 
     case "select-bridge":
-      return (
-        <SelectBridgeView
-          bridges={state.bridges}
-          onSelect={startAuthentication}
-          onRetry={discoverBridgesAsync}
-        />
-      );
+      return <SelectBridgeView bridges={state.bridges} onSelect={startAuthentication} onRetry={discoverBridgesAsync} />;
 
     case "waiting-for-button":
-      return (
-        <WaitingForButtonView
-          bridgeIP={state.bridgeIP}
-          onCancel={discoverBridgesAsync}
-        />
-      );
+      return <WaitingForButtonView bridgeIP={state.bridgeIP} onCancel={discoverBridgesAsync} />;
 
     case "success":
-      return (
-        <SuccessView
-          bridgeIP={state.bridgeIP}
-          applicationKey={state.applicationKey}
-        />
-      );
+      return <SuccessView bridgeIP={state.bridgeIP} applicationKey={state.applicationKey} />;
 
     case "error":
-      return <ErrorView message={state.message} onRetry={discoverBridgesAsync} onManualEntry={() => setState({ step: "manual-entry" })} />;
+      return (
+        <ErrorView
+          message={state.message}
+          onRetry={discoverBridgesAsync}
+          onManualEntry={() => setState({ step: "manual-entry" })}
+        />
+      );
   }
 }
 
@@ -176,11 +166,7 @@ You can manually enter the Bridge IP address if you know it.`}
         <ActionPanel>
           <Action title="Enter IP Manually" icon={Icon.Pencil} onAction={onManualEntry} />
           <Action title="Retry Discovery" icon={Icon.ArrowClockwise} onAction={onRetry} />
-          <Action
-            title="Open Extension Preferences"
-            icon={Icon.Gear}
-            onAction={openExtensionPreferences}
-          />
+          <Action title="Open Extension Preferences" icon={Icon.Gear} onAction={openExtensionPreferences} />
         </ActionPanel>
       }
     />
@@ -252,11 +238,7 @@ function SelectBridgeView({
                   icon={Icon.Link}
                   onAction={() => onSelect(bridge.internalipaddress)}
                 />
-                <Action
-                  title="Retry Discovery"
-                  icon={Icon.ArrowClockwise}
-                  onAction={onRetry}
-                />
+                <Action title="Retry Discovery" icon={Icon.ArrowClockwise} onAction={onRetry} />
               </ActionPanel>
             }
           />
@@ -266,13 +248,7 @@ function SelectBridgeView({
   );
 }
 
-function WaitingForButtonView({
-  bridgeIP,
-  onCancel,
-}: {
-  bridgeIP: string;
-  onCancel: () => void;
-}) {
+function WaitingForButtonView({ bridgeIP, onCancel }: { bridgeIP: string; onCancel: () => void }) {
   return (
     <Detail
       markdown={`# Press the Link Button
@@ -293,13 +269,7 @@ Waiting for button press...`}
   );
 }
 
-function SuccessView({
-  bridgeIP,
-  applicationKey,
-}: {
-  bridgeIP: string;
-  applicationKey: string;
-}) {
+function SuccessView({ bridgeIP, applicationKey }: { bridgeIP: string; applicationKey: string }) {
   const handleCopyCredentials = async () => {
     await Clipboard.copy(`Bridge IP: ${bridgeIP}\nApplication Key: ${applicationKey}`);
     await showToast({
@@ -329,27 +299,15 @@ Your Hue Bridge has been successfully connected.
 > **Important:** Save your Application Key securely. You will need it if you reinstall the extension.`}
       actions={
         <ActionPanel>
-          <Action
-            title="Open Extension Preferences"
-            icon={Icon.Gear}
-            onAction={openExtensionPreferences}
-          />
+          <Action title="Open Extension Preferences" icon={Icon.Gear} onAction={openExtensionPreferences} />
           <Action
             title="Copy Credentials"
             icon={Icon.Clipboard}
             shortcut={{ modifiers: ["cmd"], key: "c" }}
             onAction={handleCopyCredentials}
           />
-          <Action
-            title="Copy Bridge IP"
-            icon={Icon.Clipboard}
-            onAction={() => Clipboard.copy(bridgeIP)}
-          />
-          <Action
-            title="Copy Application Key"
-            icon={Icon.Clipboard}
-            onAction={() => Clipboard.copy(applicationKey)}
-          />
+          <Action title="Copy Bridge IP" icon={Icon.Clipboard} onAction={() => Clipboard.copy(bridgeIP)} />
+          <Action title="Copy Application Key" icon={Icon.Clipboard} onAction={() => Clipboard.copy(applicationKey)} />
         </ActionPanel>
       }
     />
@@ -378,11 +336,7 @@ Please try again, enter the IP manually, or check your network connection.`}
         <ActionPanel>
           <Action title="Enter IP Manually" icon={Icon.Pencil} onAction={onManualEntry} />
           <Action title="Retry" icon={Icon.ArrowClockwise} onAction={onRetry} />
-          <Action
-            title="Open Extension Preferences"
-            icon={Icon.Gear}
-            onAction={openExtensionPreferences}
-          />
+          <Action title="Open Extension Preferences" icon={Icon.Gear} onAction={openExtensionPreferences} />
         </ActionPanel>
       }
     />

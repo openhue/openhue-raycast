@@ -1,13 +1,4 @@
-import {
-  List,
-  ActionPanel,
-  Action,
-  Icon,
-  showToast,
-  Toast,
-  Color,
-  openExtensionPreferences,
-} from "@raycast/api";
+import { List, ActionPanel, Action, Icon, showToast, Toast, Color, openExtensionPreferences } from "@raycast/api";
 import { useLightsWithRooms, findGroupedLightForRoom } from "./hooks/useHue";
 import { toggleRoom, setRoomBrightness } from "./api/rooms";
 import { Room, GroupedLight } from "./api/types";
@@ -52,22 +43,13 @@ function RoomsList() {
   }
 
   // Sort rooms by name
-  const sortedRooms = [...rooms].sort((a, b) =>
-    a.metadata.name.localeCompare(b.metadata.name)
-  );
+  const sortedRooms = [...rooms].sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
 
   return (
     <List isLoading={isLoading} searchBarPlaceholder="Search rooms...">
       {sortedRooms.map((room) => {
         const groupedLight = findGroupedLightForRoom(room, groupedLights);
-        return (
-          <RoomListItem
-            key={room.id}
-            room={room}
-            groupedLight={groupedLight}
-            revalidate={revalidate}
-          />
-        );
+        return <RoomListItem key={room.id} room={room} groupedLight={groupedLight} revalidate={revalidate} />;
       })}
     </List>
   );

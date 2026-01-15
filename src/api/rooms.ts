@@ -24,10 +24,7 @@ export async function getGroupedLight(groupedLightId: string): Promise<GroupedLi
   return response.data[0] ?? null;
 }
 
-export async function updateGroupedLight(
-  groupedLightId: string,
-  data: GroupedLightPut
-): Promise<ResourceIdentifier[]> {
+export async function updateGroupedLight(groupedLightId: string, data: GroupedLightPut): Promise<ResourceIdentifier[]> {
   const response = await huePut<ResourceIdentifier>(`${GROUPED_LIGHT_ENDPOINT}/${groupedLightId}`, data);
   return response.data;
 }

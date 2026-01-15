@@ -118,7 +118,7 @@ export function mirekToHex(mirek: number): string {
 // Helper function to check if a point is inside a triangle (gamut)
 function isPointInGamut(
   point: GamutPosition,
-  gamut: { red: GamutPosition; green: GamutPosition; blue: GamutPosition }
+  gamut: { red: GamutPosition; green: GamutPosition; blue: GamutPosition },
 ): boolean {
   const { red, green, blue } = gamut;
 
@@ -143,11 +143,7 @@ function isPointInGamut(
 }
 
 // Helper to find closest point on a line segment
-function closestPointOnLine(
-  point: GamutPosition,
-  lineStart: GamutPosition,
-  lineEnd: GamutPosition
-): GamutPosition {
+function closestPointOnLine(point: GamutPosition, lineStart: GamutPosition, lineEnd: GamutPosition): GamutPosition {
   const dx = lineEnd.x - lineStart.x;
   const dy = lineEnd.y - lineStart.y;
 
@@ -157,7 +153,7 @@ function closestPointOnLine(
 
   const t = Math.max(
     0,
-    Math.min(1, ((point.x - lineStart.x) * dx + (point.y - lineStart.y) * dy) / (dx * dx + dy * dy))
+    Math.min(1, ((point.x - lineStart.x) * dx + (point.y - lineStart.y) * dy) / (dx * dx + dy * dy)),
   );
 
   return {
@@ -169,7 +165,7 @@ function closestPointOnLine(
 // Clamp point to gamut triangle
 function clampToGamut(
   point: GamutPosition,
-  gamut: { red: GamutPosition; green: GamutPosition; blue: GamutPosition }
+  gamut: { red: GamutPosition; green: GamutPosition; blue: GamutPosition },
 ): GamutPosition {
   if (isPointInGamut(point, gamut)) {
     return point;

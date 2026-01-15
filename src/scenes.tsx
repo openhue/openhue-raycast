@@ -1,13 +1,4 @@
-import {
-  List,
-  ActionPanel,
-  Action,
-  Icon,
-  showToast,
-  Toast,
-  Color,
-  openExtensionPreferences,
-} from "@raycast/api";
+import { List, ActionPanel, Action, Icon, showToast, Toast, Color, openExtensionPreferences } from "@raycast/api";
 import { useScenesWithRooms, getRoomName } from "./hooks/useHue";
 import { activateScene, groupScenesByRoom } from "./api/scenes";
 import { Scene } from "./api/types";
@@ -76,13 +67,7 @@ function ScenesList() {
   );
 }
 
-function SceneListItem({
-  scene,
-  revalidate,
-}: {
-  scene: Scene;
-  revalidate: () => Promise<void>;
-}) {
+function SceneListItem({ scene, revalidate }: { scene: Scene; revalidate: () => Promise<void> }) {
   const isActive = scene.status?.active !== "inactive";
 
   const accessories: List.Item.Accessory[] = [];
@@ -119,11 +104,7 @@ function SceneListItem({
       actions={
         <ActionPanel>
           <ActionPanel.Section>
-            <Action
-              icon={Icon.Play}
-              title="Activate Scene"
-              onAction={() => handleActivate("active")}
-            />
+            <Action icon={Icon.Play} title="Activate Scene" onAction={() => handleActivate("active")} />
             <Action
               icon={Icon.PlayFilled}
               title="Activate with Dynamic Colors"

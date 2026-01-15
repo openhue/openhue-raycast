@@ -17,7 +17,7 @@ export function useLights() {
     [],
     {
       keepPreviousData: true,
-    }
+    },
   );
 }
 
@@ -33,7 +33,7 @@ export function useRooms() {
     [],
     {
       keepPreviousData: true,
-    }
+    },
   );
 }
 
@@ -49,7 +49,7 @@ export function useGroupedLights() {
     [],
     {
       keepPreviousData: true,
-    }
+    },
   );
 }
 
@@ -65,7 +65,7 @@ export function useScenes() {
     [],
     {
       keepPreviousData: true,
-    }
+    },
   );
 }
 
@@ -83,11 +83,7 @@ export function useLightsWithRooms(): {
   const groupedLightsResult = useGroupedLights();
 
   const revalidate = async () => {
-    await Promise.all([
-      lightsResult.revalidate(),
-      roomsResult.revalidate(),
-      groupedLightsResult.revalidate(),
-    ]);
+    await Promise.all([lightsResult.revalidate(), roomsResult.revalidate(), groupedLightsResult.revalidate()]);
   };
 
   return {

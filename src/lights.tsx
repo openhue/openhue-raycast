@@ -1,13 +1,4 @@
-import {
-  List,
-  ActionPanel,
-  Action,
-  Icon,
-  showToast,
-  Toast,
-  Color,
-  openExtensionPreferences,
-} from "@raycast/api";
+import { List, ActionPanel, Action, Icon, showToast, Toast, Color, openExtensionPreferences } from "@raycast/api";
 import { useLightsWithRooms, findRoomForLight } from "./hooks/useHue";
 import { toggleLight, setLightBrightness, setLightColorTemperature, setLightColor } from "./api/lights";
 import { Light, Room } from "./api/types";
@@ -77,7 +68,11 @@ function LightsList() {
   return (
     <List isLoading={isLoading} searchBarPlaceholder="Search lights...">
       {sortedRooms.map(([roomKey, { room, lights: roomLights }]) => (
-        <List.Section key={roomKey} title={room?.metadata.name ?? "Unassigned"} subtitle={`${roomLights.length} lights`}>
+        <List.Section
+          key={roomKey}
+          title={room?.metadata.name ?? "Unassigned"}
+          subtitle={`${roomLights.length} lights`}
+        >
           {roomLights.map((light) => (
             <LightListItem key={light.id} light={light} revalidate={revalidate} />
           ))}
@@ -106,7 +101,9 @@ function LightListItem({ light, revalidate }: { light: Light; revalidate: () => 
   }
 
   accessories.push({
-    icon: isOn ? { source: Icon.Circle, tintColor: Color.Green } : { source: Icon.CircleDisabled, tintColor: Color.SecondaryText },
+    icon: isOn
+      ? { source: Icon.Circle, tintColor: Color.Green }
+      : { source: Icon.CircleDisabled, tintColor: Color.SecondaryText },
     tooltip: isOn ? "On" : "Off",
   });
 
