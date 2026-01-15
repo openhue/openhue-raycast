@@ -1,5 +1,9 @@
 # OpenHue
 
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![GitHub issues](https://img.shields.io/github/issues/openhue/openhue-raycast)](https://github.com/openhue/openhue-raycast/issues)
+[![GitHub stars](https://img.shields.io/github/stars/openhue/openhue-raycast)](https://github.com/openhue/openhue-raycast/stargazers)
+
 Control your Philips Hue lighting system from Raycast.
 
 ## Features
@@ -38,6 +42,10 @@ npm run build
 npm run lint
 ```
 
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
 ## License
 
-MIT
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
