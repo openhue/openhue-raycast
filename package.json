@@ -17,14 +17,49 @@
   "commands": [
     {
       "name": "lights",
-      "title": "Lights",
-      "description": "",
-      "mode": "no-view"
+      "title": "Control Lights",
+      "description": "View and control individual Hue lights",
+      "mode": "view"
+    },
+    {
+      "name": "rooms",
+      "title": "Control Rooms",
+      "description": "View and control Hue rooms",
+      "mode": "view"
+    },
+    {
+      "name": "scenes",
+      "title": "Activate Scenes",
+      "description": "Browse and activate Hue scenes",
+      "mode": "view"
+    },
+    {
+      "name": "setup",
+      "title": "Setup Hue Bridge",
+      "description": "Connect to your Philips Hue Bridge",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "bridgeIP",
+      "title": "Bridge IP Address",
+      "description": "IP address of your Hue Bridge (leave empty to auto-discover)",
+      "type": "textfield",
+      "required": false
+    },
+    {
+      "name": "applicationKey",
+      "title": "Application Key",
+      "description": "Hue application key (obtained during setup)",
+      "type": "password",
+      "required": false
     }
   ],
   "dependencies": {
     "@raycast/api": "^1.104.1",
-    "@raycast/utils": "^1.17.0"
+    "@raycast/utils": "^1.17.0",
+    "yaml": "^2.8.2"
   },
   "devDependencies": {
     "@raycast/eslint-config": "^2.0.4",
