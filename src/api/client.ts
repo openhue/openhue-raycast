@@ -1,4 +1,4 @@
-import { getPreferenceValues } from "@raycast/api";
+import { getPreferenceValues, environment } from "@raycast/api";
 import https from "https";
 import fs from "fs";
 import os from "os";
@@ -14,6 +14,9 @@ interface Preferences {
 
 // Path to openhue config file
 const OPENHUE_CONFIG_PATH = path.join(os.homedir(), ".openhue", "config.yaml");
+
+// Load Hue Bridge root CA certificate for SSL verification
+const HUE_ROOT_CA = fs.readFileSync(path.join(environment.assetsPath, "root_ca_cert.pem"));
 
 export class HueApiError extends Error {
   constructor(
@@ -135,7 +138,11 @@ export async function hueRequest<T>(
       path: endpoint,
       method: method,
       headers: headers,
-      rejectUnauthorized: false, // Accept self-signed certificates
+      ca: HUE_ROOT_CA, // Use Philips Hue root CA for certificate verification
+      rejectUnauthorized: true,
+      // Hue bridge certs are issued to bridge ID, not IP - skip hostname verification
+      // but still verify the certificate chain against the Hue root CA
+      checkServerIdentity: () => undefined,
     };
 
     const req = https.request(reqOptions, (res) => {
@@ -171,6 +178,7 @@ export async function hueRequest<T>(
     });
 
     req.on("error", (e) => {
+      console.error(`[hueRequest] error:`, e);
       reject(new HueApiError(`Connection failed: ${e.message}`));
     });
 
