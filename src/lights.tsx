@@ -77,18 +77,9 @@ function LightsList() {
   return (
     <List isLoading={isLoading} searchBarPlaceholder="Search lights...">
       {sortedRooms.map(([roomKey, { room, lights: roomLights }]) => (
-        <List.Section
-          key={roomKey}
-          title={getRoomName(room)}
-          subtitle={`${roomLights.length} lights`}
-        >
+        <List.Section key={roomKey} title={getRoomName(room)} subtitle={`${roomLights.length} lights`}>
           {roomLights.map((light) => (
-            <LightListItem
-              key={light.id}
-              light={light}
-              roomName={getRoomName(room)}
-              revalidate={revalidate}
-            />
+            <LightListItem key={light.id} light={light} roomName={getRoomName(room)} revalidate={revalidate} />
           ))}
         </List.Section>
       ))}
