@@ -136,13 +136,14 @@ export function useScenesWithRooms(): {
 
 // Helper to find room for a light
 export function findRoomForLight(light: Light, rooms: Room[]): Room | undefined {
-  const deviceId = light.owner.rid;
-  return rooms.find((room) => room.children.some((child) => child.rid === deviceId));
+  const deviceId = light.owner?.rid;
+  if (!deviceId) return undefined;
+  return rooms.find((room) => room.children?.some((child) => child.rid === deviceId));
 }
 
 // Helper to find grouped light for a room
 export function findGroupedLightForRoom(room: Room, groupedLights: GroupedLight[]): GroupedLight | undefined {
-  const groupedLightRef = room.services.find((s) => s.rtype === "grouped_light");
+  const groupedLightRef = room.services?.find((s) => s.rtype === "grouped_light");
   if (!groupedLightRef) return undefined;
   return groupedLights.find((gl) => gl.id === groupedLightRef.rid);
 }
@@ -150,5 +151,5 @@ export function findGroupedLightForRoom(room: Room, groupedLights: GroupedLight[
 // Helper to get room name from room ID
 export function getRoomName(roomId: string, rooms: Room[]): string {
   const room = rooms.find((r) => r.id === roomId);
-  return room?.metadata.name ?? "Unknown Room";
+  return room?.metadata?.name ?? "Unknown Room";
 }

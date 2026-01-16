@@ -14,7 +14,7 @@ import {
 } from "@raycast/api";
 import path from "path";
 import { discoverBridges, authenticate, isLinkButtonError, getApplicationKey } from "./api/auth";
-import type { BridgeDiscovery } from "./api/generated/src/models";
+import type { BridgeDiscovery } from "./api/types";
 
 type SetupState =
   | { step: "discovering" }
