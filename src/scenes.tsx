@@ -59,7 +59,7 @@ function ScenesList() {
       {sortedRooms.map(({ roomId, roomName, scenes: roomScenes }) => (
         <List.Section key={roomId} title={roomName} subtitle={`${roomScenes.length} scenes`}>
           {roomScenes.map((scene) => (
-            <SceneListItem key={scene.id} scene={scene} revalidate={revalidate} />
+            <SceneListItem key={scene.id} scene={scene} roomName={roomName} revalidate={revalidate} />
           ))}
         </List.Section>
       ))}
@@ -67,7 +67,15 @@ function ScenesList() {
   );
 }
 
-function SceneListItem({ scene, revalidate }: { scene: Scene; revalidate: () => Promise<void> }) {
+function SceneListItem({
+  scene,
+  roomName,
+  revalidate,
+}: {
+  scene: Scene;
+  roomName: string;
+  revalidate: () => Promise<void>;
+}) {
   const isActive = scene.status?.active !== "inactive";
 
   const accessories: List.Item.Accessory[] = [];
@@ -101,6 +109,8 @@ function SceneListItem({ scene, revalidate }: { scene: Scene; revalidate: () => 
     <List.Item
       icon={Icon.Image}
       title={scene.metadata?.name ?? "Unknown Scene"}
+      subtitle={roomName}
+      keywords={[roomName]}
       accessories={accessories}
       actions={
         <ActionPanel>

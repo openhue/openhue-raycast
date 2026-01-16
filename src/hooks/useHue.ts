@@ -90,12 +90,14 @@ export function useLightsWithRooms(): {
   const scenesResult = useScenes();
 
   const revalidate = async () => {
-    await Promise.all([
-      lightsResult.revalidate(),
-      roomsResult.revalidate(),
-      groupedLightsResult.revalidate(),
-      scenesResult.revalidate(),
-    ]);
+    // Revalidate sequentially with small delays to avoid rate limiting (HTTP 429)
+    await lightsResult.revalidate();
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    await roomsResult.revalidate();
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    await groupedLightsResult.revalidate();
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    await scenesResult.revalidate();
   };
 
   return {
@@ -122,7 +124,10 @@ export function useScenesWithRooms(): {
   const roomsResult = useRooms();
 
   const revalidate = async () => {
-    await Promise.all([scenesResult.revalidate(), roomsResult.revalidate()]);
+    // Revalidate sequentially with small delay to avoid rate limiting (HTTP 429)
+    await scenesResult.revalidate();
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    await roomsResult.revalidate();
   };
 
   return {

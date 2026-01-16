@@ -81,7 +81,12 @@ function LightsList() {
           subtitle={`${roomLights.length} lights`}
         >
           {roomLights.map((light) => (
-            <LightListItem key={light.id} light={light} revalidate={revalidate} />
+            <LightListItem
+              key={light.id}
+              light={light}
+              roomName={room?.metadata.name ?? "Unassigned"}
+              revalidate={revalidate}
+            />
           ))}
         </List.Section>
       ))}
@@ -89,7 +94,15 @@ function LightsList() {
   );
 }
 
-function LightListItem({ light, revalidate }: { light: Light; revalidate: () => Promise<void> }) {
+function LightListItem({
+  light,
+  roomName,
+  revalidate,
+}: {
+  light: Light;
+  roomName: string;
+  revalidate: () => Promise<void>;
+}) {
   const isOn = light.on?.on ?? false;
   const brightness = light.dimming?.brightness ?? 100;
   const lightName = light.metadata?.name ?? "Unknown Light";
@@ -189,7 +202,8 @@ function LightListItem({ light, revalidate }: { light: Light; revalidate: () => 
     <List.Item
       icon={iconTintColor ? { source: Icon.LightBulb, tintColor: iconTintColor } : Icon.LightBulb}
       title={lightName}
-      subtitle={formatArchetype(lightArchetype)}
+      subtitle={`${roomName} • ${formatArchetype(lightArchetype)}`}
+      keywords={[roomName]}
       accessories={accessories}
       actions={
         <ActionPanel>
