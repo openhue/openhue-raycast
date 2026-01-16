@@ -49,7 +49,7 @@ export async function createFetchAdapter(): Promise<typeof fetch> {
         type: "basic" as ResponseType,
         body: null,
         bodyUsed: true,
-        headers: {} as any,
+        headers: {} as Headers,
         clone() {
           return this as Response;
         },
